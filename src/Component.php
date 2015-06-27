@@ -23,6 +23,7 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
         '/user/forgot-password',
         '/user/reset-password',
         '/debug/default/toolbar',
+        '/debug/default/view',
     ];
 
     /**

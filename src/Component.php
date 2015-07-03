@@ -43,22 +43,20 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
      */
     public function bootstrap($app)
     {
-        if (!Yii::$app instanceof \yii\web\Application || !Yii::$app->getUser()->isGuest) {
+        if (!Yii::$app instanceof \yii\web\Application || !Yii::$app->getUser()->isGuest || $this->isExceptionRoute($this->getRoute())) {
             return;
         }
 
         $user = Yii::$app->getUser();
         $request = Yii::$app->getRequest();
 
-        if (!$this->isExceptionRoute($this->getRoute()) ) {
-            if ($user->loginUrl === null) {
-                throw new \yii\web\ForbiddenHttpException(Yii::t('yii', 'Login Required'));
-            }
-
-            $user->setReturnUrl($request->getUrl());
-            Yii::$app->getResponse()->redirect((array) $user->loginUrl);
-            Yii::$app->end();
+        if ($user->loginUrl === null) {
+            throw new \yii\web\ForbiddenHttpException(Yii::t('yii', 'Login Required'));
         }
+
+        $user->setReturnUrl($request->getUrl());
+        Yii::$app->getResponse()->redirect((array) $user->loginUrl);
+        Yii::$app->end();
     }
 
     /**

@@ -47,16 +47,19 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
             return;
         }
 
-        $user = Yii::$app->getUser();
-        $request = Yii::$app->getRequest();
+        $app->on(\yii\web\Application::EVENT_BEFORE_REQUEST, function ($event) {
+            $event->handled = true;
+            $user = Yii::$app->getUser();
+            $request = Yii::$app->getRequest();
 
-        if ($user->loginUrl === null) {
-            throw new \yii\web\ForbiddenHttpException(Yii::t('yii', 'Login Required'));
-        }
+            if ($user->loginUrl === null) {
+                throw new \yii\web\ForbiddenHttpException(Yii::t('yii', 'Login Required'));
+            }
 
-        $user->setReturnUrl($request->getUrl());
-        Yii::$app->getResponse()->redirect((array) $user->loginUrl);
-        Yii::$app->end();
+            $user->setReturnUrl($request->getUrl());
+            Yii::$app->getResponse()->redirect((array) $user->loginUrl);
+            Yii::$app->end();
+        });
     }
 
     /**

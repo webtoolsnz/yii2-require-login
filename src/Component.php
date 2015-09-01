@@ -16,22 +16,15 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
     /**
      * @var array
      */
-    public $exceptions = [
-        '/login',
-        '/logout',
-        '/user/login',
-        '/user/forgot-password',
-        '/user/reset-password',
-        '/debug/default/toolbar',
-        '/debug/default/view',
+    public static $exceptions = [
+        'login',
+        'logout',
+        'user/login',
+        'user/forgot-password',
+        'user/reset-password',
+        'debug/default/toolbar',
+        'debug/default/view',
     ];
-
-    /**
-     * If set to true allows partial matches for exceptions
-     *
-     * @var bool
-     */
-    public $matchPartial = false;
 
     /**
      * Bootstrap method is executed on every request, checks to see if the current route
@@ -43,7 +36,7 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
      */
     public function bootstrap($app)
     {
-        if (!Yii::$app instanceof \yii\web\Application || !Yii::$app->getUser()->isGuest || $this->isExceptionRoute($this->getRoute())) {
+        if (Yii::$app instanceof \yii\console\Application || !Yii::$app->getUser()->isGuest || $this->isExceptionRoute($this->getRoute())) {
             return;
         }
 
@@ -52,7 +45,7 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
             $user = Yii::$app->getUser();
             $request = Yii::$app->getRequest();
 
-            if ($user->loginUrl === null) {
+            if ($user->loginUrl === null || $request->isAjax) {
                 throw new \yii\web\ForbiddenHttpException(Yii::t('yii', 'Login Required'));
             }
 
@@ -70,14 +63,10 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
      */
     public function isExceptionRoute($route)
     {
-        if (false === $this->matchPartial) {
-            return in_array($route, $this->exceptions);
-        }
-
-        foreach($this->exceptions as $exception) {
-            if (strncmp($exception, $route, strlen($exception)) === 0) {
+        foreach(self::$exceptions as $exception) {
+           if ($exception === $route || (substr($exception, 0, 2) === '/^' && preg_match($exception, $route) === 1)) {
                 return true;
-            }
+           }
         }
 
         return false;
@@ -91,7 +80,21 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
      */
     public function getRoute()
     {
-        return '/'.Yii::$app->getRequest()->getPathInfo();
+        try {
+            $path = Yii::$app->getRequest()->getPathInfo();
+        } catch(\yii\base\InvalidConfigException $e) {
+            $path = '';
+        }
+
+        return $path;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setExceptions($value)
+    {
+        self::$exceptions = $value;
     }
 }
 

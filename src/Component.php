@@ -44,12 +44,13 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
             $event->handled = true;
             $user = Yii::$app->getUser();
             $request = Yii::$app->getRequest();
+            $url = $request->getUrl();
 
-            if ($user->loginUrl === null || $request->isAjax) {
+            if (($user->loginUrl === null || $request->isAjax) || ($url === $user->getReturnUrl())) {
                 throw new \yii\web\ForbiddenHttpException(Yii::t('yii', 'Login Required'));
             }
 
-            $user->setReturnUrl($request->getUrl());
+            $user->setReturnUrl($url);
             Yii::$app->getResponse()->redirect((array) $user->loginUrl);
             Yii::$app->end();
         });

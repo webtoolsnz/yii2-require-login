@@ -17,6 +17,7 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
      * @var array
      */
     public static $exceptions = [
+        '',
         'login',
         'logout',
         'user/login',

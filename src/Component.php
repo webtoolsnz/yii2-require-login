@@ -37,7 +37,7 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
      */
     public function bootstrap($app)
     {
-        if (Yii::$app instanceof \yii\console\Application || !Yii::$app->getUser()->isGuest || $this->isExceptionRoute($this->getRoute())) {
+        if (Yii::$app instanceof \yii\console\Application || $this->isExceptionRoute($this->getRoute())) {
             return;
         }
 
@@ -46,6 +46,10 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
             $user = Yii::$app->getUser();
             $request = Yii::$app->getRequest();
             $url = $request->getUrl();
+
+            if (!$user->isGuest) {
+                return;
+            }
 
             if ($user->loginUrl === null || $request->isAjax) {
                 throw new \yii\web\ForbiddenHttpException(Yii::t('yii', 'Login Required'));

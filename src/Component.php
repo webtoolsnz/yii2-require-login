@@ -42,7 +42,7 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
         }
 
         $app->on(\yii\web\Application::EVENT_BEFORE_REQUEST, function ($event) {
-            $event->handled = true;
+            
             $user = Yii::$app->getUser();
             $request = Yii::$app->getRequest();
             $url = $request->getUrl();

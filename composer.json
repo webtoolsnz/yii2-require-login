@@ -3,7 +3,7 @@
   "description": "Simple component that enforces a blanket authentication requirement for all controller/actions.",
   "keywords": ["yii2", "component", "require-login"],
   "type": "yii2-extension",
-  "license": "proprietary",
+  "license": "MIT",
   "homepage": "https://github.com/webtoolsnz/yii2-require-login",
   "authors": [
     {

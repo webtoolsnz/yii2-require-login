@@ -1,5 +1,6 @@
 # Require Login for Yii2 Application
 
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/webtoolsnz/yii2-require-login/badges/quality-score.png?b=master&s=c31d25819240ab85a1d0e29828f4801099fcfaf2)](https://scrutinizer-ci.com/g/webtoolsnz/yii2-require-login/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/webtoolsnz/yii2-require-login/badges/coverage.png?b=master&s=7d2ba07523b96249052fac819faf57962692fe86)](https://scrutinizer-ci.com/g/webtoolsnz/yii2-require-login/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/webtoolsnz/yii2-require-login/badges/build.png?b=master&s=4397a434491a90f89f9de8f4868598571db4b65b)](https://scrutinizer-ci.com/g/webtoolsnz/yii2-require-login/build-status/master)
@@ -58,3 +59,7 @@ you can override this list with your own list using the below config.
 ...
 ~~~
 
+
+## License
+
+The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.

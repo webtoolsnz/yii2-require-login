@@ -1,8 +1,16 @@
 <?php
 /**
- * @link https://gihub.com/webtoolsnz/yii2-require-login
- * @copyright Copyright (c) 2015 Webtools Ltd
+ * This file is part of the webtoolsnz\yii2-require-login library
+ *
+ * @copyright Copyright (c) 2017 Webtools Ltd
+ * @license http://opensource.org/licenses/MIT
+ * @link https://github.com/webtoolsnz/yii2-require-login
+ * @package webtoolsnz/yii2-require-login
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
 namespace webtoolsnz\RequireLogin;
 
 use Yii;

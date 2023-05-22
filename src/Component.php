@@ -33,6 +33,8 @@ class Component extends \yii\base\Component implements \yii\base\BootstrapInterf
         'user/reset-password',
         'debug/default/toolbar',
         'debug/default/view',
+        'mfa-verify',
+        'mfa-setup',
     ];
 
     /**
